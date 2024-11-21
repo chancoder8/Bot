@@ -3,9 +3,9 @@ import {
   Alert,
   Image,
   KeyboardAvoidingView,
-  Platform,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -110,14 +110,16 @@ export default function CreatePostScreen() {
       behavior="padding"
       keyboardVerticalOffset={110}
     >
-      {image ? (
-        <Image
-          source={{ uri: image }}
-          className="w-52 aspect-[3/4] bg-slate-500 rounded-lg"
-        />
-      ) : (
-        <View className="w-52 aspect-[3/4] bg-slate-500 rounded-lg" />
-      )}
+      <TouchableOpacity onPress={pickImage}>
+        {image ? (
+          <Image
+            source={{ uri: image }}
+            className="w-52 aspect-[3/4] bg-slate-500 rounded-lg"
+          />
+        ) : (
+          <View className="w-52 aspect-[3/4] bg-slate-500 rounded-lg" />
+        )}
+      </TouchableOpacity>
 
       <Text className=" text-blue-500 font-semibold m-5" onPress={pickImage}>
         사진 선택
