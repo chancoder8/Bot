@@ -1,6 +1,6 @@
 import { Redirect, Tabs } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Image } from 'react-native';
+import { Image, KeyboardAvoidingView } from 'react-native';
 import { useAuth } from '~/src/providers/AuthProvider';
 
 export default function TabLayout() {

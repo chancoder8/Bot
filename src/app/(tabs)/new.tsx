@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Image, Text, TextInput, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Button from '~/src/components/Button';
 import { uploadImage } from '~/src/lib/cloudinary';
@@ -11,6 +18,7 @@ export default function CreatePostScreen() {
   const [title, setTitle] = useState('');
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { session } = useAuth();
 
@@ -32,8 +40,11 @@ export default function CreatePostScreen() {
     if (!image) {
       return;
     }
-    const response = await uploadImage(image);
 
+    setIsLoading(true);
+    router.push('/(tabs)');
+
+    const response = await uploadImage(image);
     console.log('image id:', response?.public_id);
 
     const { data, error } = await supabase
@@ -51,12 +62,15 @@ export default function CreatePostScreen() {
     setCaption('');
     setTitle('');
     setImage(null);
-
-    router.push('/(tabs)');
+    setIsLoading(false);
   };
 
   return (
-    <View className="p-3 items-center flex-1">
+    <KeyboardAvoidingView
+      className="p-3 items-center flex-1"
+      behavior="padding"
+      keyboardVerticalOffset={110}
+    >
       {image ? (
         <Image
           source={{ uri: image }}
@@ -74,19 +88,24 @@ export default function CreatePostScreen() {
         placeholder="제목을 작성하시오"
         onChangeText={(newValue) => setTitle(newValue)}
         value={title}
-        className="w-full p-3"
+        autoCapitalize="none"
+        autoComplete="off"
+        className="w-full border border-gray-300 p-4 rounded-md mb-5"
       />
 
       <TextInput
         placeholder="내용을 작성하시오"
         onChangeText={(newValue) => setCaption(newValue)}
         value={caption}
-        className="w-full p-3"
+        autoCapitalize="none"
+        autoComplete="off"
+        multiline={true}
+        className="w-full border border-gray-300 p-4 rounded-md"
       />
 
       <View className="mt-auto w-full">
-        <Button onPress={createPost} title="작성완료" />
+        <Button onPress={createPost} disabled={isLoading} title="작성완료" />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

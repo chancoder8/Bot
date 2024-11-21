@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import {
   Alert,
   FlatList,
-  Image,
   RefreshControl,
-  Text,
+  SafeAreaView,
   View,
 } from 'react-native';
 import PostListItem from '~/src/components/PostListItem';
@@ -42,19 +41,20 @@ export default function FeedScreen() {
   };
 
   return (
-    <FlatList
-      data={posts.slice().reverse()}
-      renderItem={({ item }) => <PostListItem post={item} />}
-      contentContainerStyle={{
-        alignSelf: 'center',
-        gap: 2,
-        width: '100%',
-        flex: 1,
-      }}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    />
+    <View style={{ flex: 1 }}>
+      <FlatList
+        data={posts.slice().reverse()}
+        renderItem={({ item }) => <PostListItem post={item} />}
+        contentContainerStyle={{
+          alignSelf: 'center',
+          gap: 2,
+          width: '100%',
+        }}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
+    </View>
   );
 }
