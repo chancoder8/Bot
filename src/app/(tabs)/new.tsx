@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -12,15 +13,41 @@ import Button from '~/src/components/Button';
 import { uploadImage } from '~/src/lib/cloudinary';
 import { supabase } from '~/src/lib/supabase';
 import { useAuth } from '~/src/providers/AuthProvider';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
+import { push } from 'expo-router/build/global-state/routing';
 
 export default function CreatePostScreen() {
   const [title, setTitle] = useState('');
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState('');
 
   const { session } = useAuth();
+  const { user } = useAuth();
+
+  useFocusEffect(
+    useCallback(() => {
+      getProfile();
+    }, [])
+  );
+
+  const getProfile = async () => {
+    if (!user) {
+      return;
+    }
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user?.id)
+      .single();
+
+    if (error) {
+      Alert.alert('프로필을 불러오는데 실패했습니다.');
+    }
+
+    setUsername(data.username);
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -38,6 +65,18 @@ export default function CreatePostScreen() {
 
   const createPost = async () => {
     if (!image) {
+      Alert.alert('사진을 선택해주세요.');
+      return;
+    }
+
+    if (!title) {
+      Alert.alert('제목을 작성해주세요.');
+      return;
+    }
+
+    if (!username) {
+      Alert.alert('글을 쓰려면 프로필에서 이름(본명)을 저장해주세요.');
+      router.push('/(tabs)/profile');
       return;
     }
 
