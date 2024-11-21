@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "image": "i4e3bmh5c43xzjcxoufh",
+    "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg",
+    "title": "부천고 매크로 들어와",
+    "caption": "부천고 매크로 왔더니 상품줌ㅋㅋ",
+    "user": {
+      "id": "u1",
+      "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg",
+      "username": "김찬후"
+    }
+  },
+  {
+    "id": "2",
+    "image": "samples/woman-on-a-football-field",
+    "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/2.jpg",
+    "title": "부천고 늘품제 연극 보러갈사람",
+    "caption": "근데 10명 밖에 못보러 간데",
+    "user": {
+      "id": "u1",
+      "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg",
+      "username": "김효원"
+    }
+  },
+  {
+    "id": "3",
+    "image": "samples/dessert-on-a-plate",
+    "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/3.jpg",
+    "title": "학교가기 싫다",
+    "caption": "ㅇㅈ?",
+    "user": {
+      "id": "u1",
+      "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/3.jpg",
+      "username": "오인택"
+    }
+  },
+  {
+    "id": "4",
+    "image": "samples/balloons",
+    "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/4.jpg",
+    "title": "오늘 학교 끝나고 놀사람",
+    "caption": "끝나고 구멍가게로 오셈",
+    "user": {
+      "id": "u1",
+      "image_url": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/4.jpg",
+      "username": "한도윤"
+    }
+  }
+]
